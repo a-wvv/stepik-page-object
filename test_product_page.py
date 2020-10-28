@@ -10,25 +10,25 @@ urls = ['http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/']
 class TestUserAddToBasketFromProductPage():
     @pytest.fixture(scope='function', autouse=True)
     def setup(self, browser, link):
-        page = LoginPage(browser, link)
-        page.open()
-        page.go_to_login_page()
-        page.register_new_user()
-        page.should_be_authorized_user()
+        self.page = LoginPage(browser, link)
+        self.page.open()
+        self.page.go_to_login_page()
+        self.page.register_new_user()
+        self.page.should_be_authorized_user()
 
     @pytest.mark.need_review
     def test_user_can_add_to_basket(self, browser, link):
-        page = ProductPageObject(browser, link)
-        page.open()
-        page.should_add_to_basket()
-        page.should_add_with_correct_name()
-        page.should_add_with_correct_price()
-        page.should_be_success()
+        self.page = ProductPageObject(browser, link)
+        self.page.open()
+        self.page.should_add_to_basket()
+        self.page.should_add_with_correct_name()
+        self.page.should_add_with_correct_price()
+        self.page.should_be_success()
 
     def test_user_cant_see_success_message(self, browser, link):
-        page = ProductPageObject(browser, link)
-        page.open()
-        page.should_not_be_success_message()
+        self.page = ProductPageObject(browser, link)
+        self.page.open()
+        self.page.should_not_be_success_message()
 
 
 @pytest.mark.parametrize('link', urls)
